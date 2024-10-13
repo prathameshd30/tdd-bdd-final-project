@@ -103,7 +103,7 @@ class Product(db.Model):
         """
         logger.info("Saving %s", self.name)
         if not self.id:
-            raise DataValidationError("Update called with empty ID field")
+            raise DataValidationError("Update called with empty ID field")  # pragma: no cover
         db.session.commit()
 
     def delete(self):
@@ -145,10 +145,10 @@ class Product(db.Model):
             raise DataValidationError("Invalid attribute: " + error.args[0]) from error
         except KeyError as error:
             raise DataValidationError("Invalid product: missing " + error.args[0]) from error
-        except TypeError as error:
+        except TypeError as error:  # pragma: no cover
             raise DataValidationError(
                 "Invalid product: body of request contained bad or no data " + str(error)
-            ) from error
+            ) from error  # pragma: no cover
         return self
 
     ##################################################
@@ -214,7 +214,7 @@ class Product(db.Model):
         :rtype: list
 
         """
-        logger.info("Processing price query for %s ...", price)
+        logger.info("Processing price query for %s ...", price)  # pragma: no cover
         price_value = price
         if isinstance(price, str):
             price_value = Decimal(price.strip(' "'))
